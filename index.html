@@ -3,230 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Retorno de Inversión T.E.A.M.</title>
-    <!-- Carga de Tailwind CSS para un diseño responsive y moderno -->
+    <title>ROI del Modelo de Aprendizaje T.E.A.M.</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Configuraciones de fuente y color de fondo para la calculadora */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc; /* Fondo claro para integrarse bien en blogs */
-            padding: 20px;
+            background-color: #f7f9fb;
+            color: #1f2937;
         }
-        /* Estilo para los inputs */
-        .input-field {
-            padding: 10px;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            width: 100%;
-            transition: all 0.2s;
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        .input-field:focus {
-            border-color: #3b82f6; /* Azul de enfoque */
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        .input-group input, .input-group select {
+            border: 2px solid #e5e7eb;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .input-group input:focus, .input-group select:focus {
+            border-color: #059669; /* Verde para educación/éxito */
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.5);
             outline: none;
         }
-        /* Estilos de la tarjeta principal */
-        .calculator-card {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            max-width: 500px;
-            margin: 0 auto;
+        .result-box {
+            background-color: #f0fdf4;
+            border: 2px solid #a7f3d0;
         }
-         /* Estilos de los botones de Conversión */
-        .btn-conversion-main {
-            background-color: #3b82f6; /* Azul para el objetivo principal */
-            transition: background-color 0.2s, transform 0.2s;
+        .result-label {
+            color: #059669;
         }
-        .btn-conversion-main:hover {
-            background-color: #2563eb;
-            transform: translateY(-1px);
+        .result-value {
+            color: #065f46;
         }
-        .btn-conversion-secondary {
-            border: 2px solid #3b82f6;
-            color: #3b82f6;
-            transition: background-color 0.2s;
+        .btn-calculate {
+            background-color: #10b981;
+            transition: background-color 0.3s, transform 0.1s;
         }
-        .btn-conversion-secondary:hover {
-            background-color: #eff6ff;
+        .btn-calculate:hover {
+            background-color: #059669;
+        }
+        .btn-calculate:active {
+            transform: scale(0.98);
+        }
+        .read-only-field {
+            background-color: #eef2ff;
+            border: 1px solid #c7d2fe;
+            color: #4338ca;
+            font-weight: 600;
         }
     </style>
 </head>
-<body class="p-4 sm:p-6 md:p-8">
+<body class="p-4 sm:p-8 flex justify-center items-center min-h-screen">
 
-    <div id="calculatorApp" class="calculator-card">
-        <h1 class="text-2xl font-extrabold text-gray-800 mb-2">Calculadora ROI T.E.A.M.</h1>
-        <p class="text-sm text-gray-600 mb-6">Estime el retorno de su inversión publicitaria basada en el modelo T.E.A.M. (Topic, Entity, Authority, Mastery).</p>
+    <div id="calculator-app" class="card w-full max-w-4xl p-6 sm:p-10 rounded-xl">
+        <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 text-center text-gray-800">
+            Calculadora de ROI del Modelo T.E.A.M.
+        </h1>
+        <p class="text-center text-gray-500 mb-8">
+            Mida la rentabilidad de su inversión en la Metodología Educativa T.E.A.M. (centrado en la Retención de Estudiantes).
+        </p>
 
-        <!-- Sección de Entradas -->
-        <div class="space-y-4">
-            <!-- 1. Inversión Total -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Columna de Inputs -->
             <div>
-                <label for="investment" class="block text-sm font-medium text-gray-700 mb-1">Inversión Publicitaria ($)</label>
-                <input type="number" id="investment" value="1000" min="0" oninput="calculateROI()" class="input-field" placeholder="Monto total de inversión">
+                <h2 class="text-xl font-bold mb-4 text-green-600 border-b pb-2">Datos de Inversión y Eficacia</h2>
+
+                <!-- 1. Costo de Licencia/Adquisición del Modelo T.E.A.M. -->
+                <div class="input-group mb-4">
+                    <label for="licence_cost" class="block text-sm font-medium mb-1">1. Costo de Licencia Académica Anual (€)</label>
+                    <input type="number" id="licence_cost" value="10000" min="0" class="w-full p-3 rounded-lg text-gray-700" placeholder="Ej: 10000" oninput="calculateROI()">
+                    <p class="text-xs text-gray-400 mt-1">Costo total de la adopción del Framework T.E.A.M. por un año.</p>
+                </div>
+                
+                <!-- 2. Formación Docente -->
+                <div class="input-group mb-4">
+                    <label class="block text-sm font-medium mb-1">2. Formación Inicial Docente</label>
+                    <div class="w-full p-3 rounded-lg read-only-field">Incluida en el costo de la licencia (€0)</div>
+                    <p class="text-xs text-gray-400 mt-1">La licencia académica anual no es exclusiva y cubre el costo de la formación inicial del equipo docente seleccionado.</p>
+                </div>
+
+                <!-- 3. Total de Alumnos Matriculados Anuales -->
+                <div class="input-group mb-4">
+                    <label for="enrolled_students" class="block text-sm font-medium mb-1">3. Total de Alumnos Matriculados Anuales</label>
+                    <input type="number" id="enrolled_students" value="1000" min="1" class="w-full p-3 rounded-lg text-gray-700" placeholder="Ej: 1000" oninput="calculateROI()">
+                    <p class="text-xs text-gray-400 mt-1">La población estudiantil que usará el modelo T.E.A.M. en el ciclo.</p>
+                </div>
+
+                <!-- 4. Tasa de Retención/Finalización Base (Pre-T.E.A.M.) -->
+                <div class="input-group mb-4">
+                    <label for="retention_base" class="block text-sm font-medium mb-1">4. Tasa de Retención/Finalización Base (Pre-T.E.A.M.) (%)</label>
+                    <input type="number" id="retention_base" value="80" min="0" max="100" step="0.1" class="w-full p-3 rounded-lg text-gray-700" placeholder="Ej: 80.0" oninput="calculateROI()">
+                    <p class="text-xs text-gray-400 mt-1">Porcentaje actual de alumnos que completan o continúan matriculados sin T.E.A.M.</p>
+                </div>
+
+                <!-- 5. Aumento Esperado en Tasa de Retención por T.E.A.M. -->
+                <div class="input-group mb-4">
+                    <label for="retention_increase" class="block text-sm font-medium mb-1">5. Aumento Esperado en Tasa de Retención por T.E.A.M. (Puntos %)</label>
+                    <input type="number" id="retention_increase" value="0.2" min="0" max="100" step="0.1" class="w-full p-3 rounded-lg text-gray-700" placeholder="Ej: 5.0" oninput="calculateROI()">
+                    <p class="text-xs text-gray-400 mt-1">Puntos porcentuales de mejora esperada en la tasa de retención (Ej: si pasa de 80% a 80.2%, ingrese 0.2).</p>
+                </div>
+
+                <!-- 6. Valor Económico de un Estudiante Retenido (LTV) -->
+                <div class="input-group mb-4">
+                    <label for="ltv" class="block text-sm font-medium mb-1">6. Valor Económico de un Estudiante Retenido (LTV) (€)</label>
+                    <input type="number" id="ltv" value="5000" min="0" class="w-full p-3 rounded-lg text-gray-700" placeholder="Ej: 5000" oninput="calculateROI()">
+                    <p class="text-xs text-gray-400 mt-1">Ingreso promedio que genera un estudiante retenido o el costo de la deserción evitada.</p>
+                </div>
+
+                <button onclick="calculateROI()" class="btn-calculate w-full p-3 rounded-lg text-white font-semibold mt-4">
+                    Calcular ROI
+                </button>
             </div>
 
-            <!-- 2. Costo por Clic (CPC) -->
-            <div>
-                <label for="cpc" class="block text-sm font-medium text-gray-700 mb-1">Costo Promedio por Clic (CPC) ($)</label>
-                <input type="number" id="cpc" value="0.50" min="0.01" step="0.01" oninput="calculateROI()" class="input-field" placeholder="Costo por cada clic">
-            </div>
+            <!-- Columna de Resultados -->
+            <div class="space-y-6">
+                <h2 class="text-xl font-bold mb-4 text-green-600 border-b pb-2">Resultados Proyectados (Primer Ciclo)</h2>
 
-            <!-- 3. Tasa de Conversión -->
-            <div>
-                <label for="conversionRate" class="block text-sm font-medium text-gray-700 mb-1">Tasa de Conversión (%)</label>
-                <input type="number" id="conversionRate" value="3.0" min="0.1" max="100" step="0.1" oninput="calculateROI()" class="input-field" placeholder="Porcentaje de visitantes que compran">
-            </div>
+                <!-- Inversión Total -->
+                <div class="result-box p-4 rounded-lg">
+                    <p class="text-sm result-label">A. Inversión Única Total en Modelo T.E.A.M.</p>
+                    <p id="total_investment" class="text-2xl font-bold result-value">€0.00</p>
+                </div>
 
-            <!-- 4. Valor por Conversión -->
-            <div>
-                <label for="valuePerConversion" class="block text-sm font-medium text-gray-700 mb-1">Valor Promedio por Conversión ($)</label>
-                <input type="number" id="valuePerConversion" value="50" min="1" oninput="calculateROI()" class="input-field" placeholder="Beneficio por cada venta o lead">
+                <!-- Tasa de Retención Proyectada -->
+                <div class="result-box p-4 rounded-lg">
+                    <p class="text-sm result-label">B. Tasa de Retención Proyectada (Post-T.E.A.M.)</p>
+                    <p id="projected_retention_rate" class="text-2xl font-bold result-value">0.00%</p>
+                </div>
+
+                <!-- Alumnos Adicionales Retenidos -->
+                <div class="result-box p-4 rounded-lg">
+                    <p class="text-sm result-label">C. Alumnos Adicionales Retenidos/Finalizados (Anual)</p>
+                    <p id="additional_retained_students" class="text-2xl font-bold result-value">0</p>
+                </div>
+
+                <!-- Retorno Bruto Adicional -->
+                <div class="result-box p-4 rounded-lg">
+                    <p class="text-sm result-label">D. Ingreso Bruto Adicional (por Retención)</p>
+                    <p id="additional_revenue" class="text-2xl font-bold result-value text-green-700">€0.00</p>
+                </div>
+
+                <!-- ROI Final -->
+                <div class="result-box p-6 rounded-lg bg-green-100 border-green-400">
+                    <p class="text-lg font-semibold result-label">E. Retorno de la Inversión (ROI)</p>
+                    <p id="roi_result" class="text-4xl font-extrabold text-green-700">0%</p>
+                </div>
             </div>
         </div>
-
-        <!-- Línea Separadora -->
-        <div class="my-6 border-t border-gray-200"></div>
-
-        <!-- Sección de Resultados -->
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Resultados Estimados</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-            <!-- Resultado 1: Retorno de la Inversión (ROI) -->
-            <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
-                <p class="text-sm font-semibold text-blue-600">ROI (Retorno de Inversión)</p>
-                <p id="roiResult" class="text-3xl font-extrabold text-blue-800 mt-1">0.00%</p>
-                <p id="roiStatus" class="text-xs mt-1 font-medium"></p>
-            </div>
-
-            <!-- Resultado 2: Ganancia/Pérdida Neta -->
-            <div class="bg-green-50 border-l-4 border-green-500 rounded-lg p-4">
-                <p class="text-sm font-semibold text-green-600">Ganancia Neta Estimada</p>
-                <p id="netProfitResult" class="text-3xl font-extrabold text-green-800 mt-1">$0.00</p>
-                <p id="totalClicks" class="text-xs text-gray-500 mt-1">Clics estimados: 0</p>
-            </div>
-        </div>
-        
-        <!-- Call-to-Action Dual -->
-        <div class="mt-6 space-y-3">
-            <p class="text-center font-semibold text-gray-800">
-                Tu ROI proyectado es la justificación que necesitas. Puedes asegurar el proceso con la Licencia o comenzar con el Dossier para la aprobación. <b>¡Tienes la opción de solicitar ambos!</b>
-            </p>
-            
-            <a href="#licencia" target="_blank"
-                class="btn-conversion-main w-full block text-center text-white font-bold py-3 rounded-lg shadow-lg transition duration-300">
-                🚀 ¡Sí! Solicitar Licencia Educativa
-            </a>
-            
-            <a href="#dossier" target="_blank"
-                class="btn-conversion-secondary w-full block text-center font-bold py-3 rounded-lg transition duration-300">
-                📖 Solicitar Dossier (Justificación para la Junta)
-            </a>
-        </div>
-
-
-        <!-- Detalles de las Métricas -->
-        <div class="mt-6 text-xs text-gray-500 border-t pt-4">
-            <p><strong>Fórmula:</strong> ROI = ((Ganancia Neta / Inversión) × 100)</p>
-            <p><strong>Ganancia Neta:</strong> (Clics × Tasa de Conversión × Valor) - Inversión</p>
-        </div>
-
     </div>
 
     <script>
-        /**
-         * Función principal para calcular el ROI y la ganancia neta.
-         * Se ejecuta cada vez que cambia un valor de entrada.
-         */
+        // Función para formatear un número a formato de moneda (Euro: €)
+        const formatCurrency = (amount) => {
+            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 }).format(amount);
+        };
+
+        // Función principal para el cálculo del ROI
         function calculateROI() {
-            // Obtener los valores de entrada. Usamos parseFloat para manejar números decimales.
-            const investment = parseFloat(document.getElementById('investment').value) || 0;
-            const cpc = parseFloat(document.getElementById('cpc').value) || 0;
-            const conversionRatePercent = parseFloat(document.getElementById('conversionRate').value) || 0;
-            const valuePerConversion = parseFloat(document.getElementById('valuePerConversion').value) || 0;
+            // 1. Obtener valores de entrada
+            const licenceCost = parseFloat(document.getElementById('licence_cost').value) || 0;
+            const enrolledStudents = parseInt(document.getElementById('enrolled_students').value) || 0;
+            const retentionBase = parseFloat(document.getElementById('retention_base').value) || 0;
+            const retentionIncrease = parseFloat(document.getElementById('retention_increase').value) || 0;
+            const ltv = parseFloat(document.getElementById('ltv').value) || 0;
 
-            // Prevenir división por cero y asegurar valores positivos
-            if (investment <= 0 || cpc <= 0 || conversionRatePercent <= 0) {
-                document.getElementById('roiResult').textContent = "N/A";
-                document.getElementById('netProfitResult').textContent = "$0.00";
-                document.getElementById('roiStatus').textContent = "Ingrese valores positivos.";
-                document.getElementById('roiStatus').className = 'text-xs mt-1 font-medium text-red-500';
-                document.getElementById('totalClicks').textContent = "Clics estimados: 0";
-                return;
+            // 2. Cálculos Intermedios
+
+            // A. Inversión Total Anual (Solo el costo fijo de la licencia, que incluye la formación inicial)
+            const totalInvestment = licenceCost;
+
+            // B. Tasa de Retención Proyectada
+            const projectedRetentionRate = retentionBase + retentionIncrease; // en %
+
+            // C. Estudiantes Retenidos Base (Sin T.E.A.M.)
+            const retainedBase = enrolledStudents * (retentionBase / 100);
+
+            // D. Estudiantes Retenidos Proyectados (Con T.E.A.M.)
+            const retainedProjected = enrolledStudents * (projectedRetentionRate / 100);
+
+            // E. Alumnos Adicionales Retenidos/Finalizados
+            // Se usa Math.max para asegurar que el valor no sea negativo.
+            const additionalRetainedStudents = Math.max(0, retainedProjected - retainedBase);
+
+            // F. Ingreso Bruto Adicional (Retorno)
+            // Es el valor económico de los estudiantes retenidos adicionalmente
+            const additionalRevenue = additionalRetainedStudents * ltv;
+
+            // G. Ganancia Neta Adicional (Retorno - Inversión)
+            const netGain = additionalRevenue - totalInvestment;
+
+            // H. Retorno de la Inversión (ROI)
+            let roi = 0;
+            if (totalInvestment > 0) {
+                // Fórmula ROI: (Ganancia Neta / Inversión Total) * 100
+                roi = (netGain / totalInvestment) * 100;
             }
 
-            // Convertir tasa de conversión de porcentaje a decimal (ej. 3% -> 0.03)
-            const conversionRate = conversionRatePercent / 100;
+            // 3. Mostrar Resultados
 
-            // 1. Calcular el número total de clics
-            // Clics = Inversión Total / CPC
-            const totalClicks = investment / cpc;
-            document.getElementById('totalClicks').textContent = `Clics estimados: ${totalClicks.toFixed(0)}`;
+            // A. Inversión Total
+            document.getElementById('total_investment').textContent = formatCurrency(totalInvestment);
 
-            // 2. Calcular el Ingreso Total
-            // Ingreso = Clics * Tasa de Conversión * Valor por Conversión
-            const totalRevenue = totalClicks * conversionRate * valuePerConversion;
+            // B. Tasa de Retención Proyectada (Aseguramos que no pase de 100%)
+            document.getElementById('projected_retention_rate').textContent = Math.min(100, projectedRetentionRate).toFixed(2) + '%';
 
-            // 3. Calcular la Ganancia Neta
-            // Ganancia Neta = Ingreso Total - Inversión
-            const netProfit = totalRevenue - investment;
+            // C. Alumnos Adicionales (redondeado al entero más cercano)
+            document.getElementById('additional_retained_students').textContent = Math.round(additionalRetainedStudents);
 
-            // 4. Calcular el ROI (%)
-            // ROI = (Ganancia Neta / Inversión) * 100
-            const roi = (netProfit / investment) * 100;
+            // D. Ingreso Bruto Adicional (Retorno)
+            document.getElementById('additional_revenue').textContent = formatCurrency(additionalRevenue);
 
-            // --- Actualizar Resultados en la UI ---
-
-            // Formatear la Ganancia Neta
-            const formatter = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-            });
-
-            document.getElementById('netProfitResult').textContent = formatter.format(netProfit);
-            
-            // Determinar el estilo para Ganancia Neta (verde para ganancia, rojo para pérdida)
-            const netProfitCard = document.querySelector('#netProfitResult').closest('div');
-            if (netProfit >= 0) {
-                netProfitCard.className = 'bg-green-50 border-l-4 border-green-500 rounded-lg p-4';
-                document.querySelector('#netProfitResult').className = 'text-3xl font-extrabold text-green-800 mt-1';
-            } else {
-                netProfitCard.className = 'bg-red-50 border-l-4 border-red-500 rounded-lg p-4';
-                document.querySelector('#netProfitResult').className = 'text-3xl font-extrabold text-red-800 mt-1';
-            }
-
-
-            // Formatear el ROI
-            const formattedROI = roi.toFixed(2) + '%';
-            document.getElementById('roiResult').textContent = formattedROI;
-
-            // Actualizar el estado del ROI
-            const roiStatusElement = document.getElementById('roiStatus');
-            const roiCard = document.querySelector('#roiResult').closest('div');
-            
-            if (roi >= 100) {
-                roiStatusElement.textContent = "¡Excelente! Su inversión se ha duplicado.";
-                roiStatusElement.className = 'text-xs mt-1 font-medium text-green-700';
-                roiCard.className = 'bg-green-100 border-l-4 border-green-600 rounded-lg p-4';
-            } else if (roi >= 0) {
-                roiStatusElement.textContent = "Positivo. Hay ganancias, pero examine cómo mejorar la conversión.";
-                roiStatusElement.className = 'text-xs mt-1 font-medium text-green-700';
-                roiCard.className = 'bg-green-50 border-l-4 border-green-500 rounded-lg p-4';
-            } else {
-                roiStatusElement.textContent = "Pérdida. Revise su CPC o la efectividad del valor de conversión.";
-                roiStatusElement.className = 'text-xs mt-1 font-medium text-red-700';
-                roiCard.className = 'bg-red-50 border-l-4 border-red-500 rounded-lg p-4';
-            }
+            // E. ROI Final
+            document.getElementById('roi_result').textContent = roi.toFixed(1) + '%';
+            // Cambiar color si es negativo
+            document.getElementById('roi_result').classList.toggle('text-red-600', roi < 0);
+            document.getElementById('roi_result').classList.toggle('text-green-700', roi >= 0);
         }
 
-        // Ejecutar el cálculo al cargar la página con los valores por defecto
-        document.addEventListener('DOMContentLoaded', calculateROI);
+        // Ejecutar el cálculo inicial al cargar la página
+        window.onload = calculateROI;
     </script>
 </body>
-
 </html>
